@@ -1,5 +1,7 @@
 <script>
     import cloud from '$lib/images/cloud.png';
+    import thunderstorm from '$lib/images/thunderstorm.png';
+    import drizzle from '$lib/images/drizzle.png';
     import nothing from '$lib/images/404.png';
     import clear from '$lib/images/clear.png';
     import mist from '$lib/images/mist.png';
@@ -38,14 +40,36 @@
                 <div class="weather">
                     {#if weather.weather[0].main === "Rain"}
                         <img src={rain} alt="rain" />
+                    {:else if weather.weather[0].main === "Thunderstorm"}
+                        <img src={thunderstorm} alt="thunderstorm" />
+                    {:else if weather.weather[0].main === "Drizzle"}
+                        <img src={drizzle} alt="drizzle" />
                     {:else if weather.weather[0].main === "Clear"}
                         <img src={clear} alt="clear" />
                     {:else if weather.weather[0].main === "Clouds"}
                         <img src={cloud} alt="cloud" />
                     {:else if weather.weather[0].main === "Snow"}
-                        <img src={snow} alt="cloud" />
+                        <img src={snow} alt="snow" />
                     {:else if weather.weather[0].main === "Mist"}
-                        <img src={mist} alt="cloud" />
+                        <img src={mist} alt="mist" />
+                        {:else if weather.weather[0].main === "Smoke"}
+                        <img src={mist} alt="mist" />
+                        {:else if weather.weather[0].main === "Haze"}
+                        <img src={mist} alt="mist" />
+                        {:else if weather.weather[0].main === "Dust"}
+                        <img src={mist} alt="mist" />
+                        {:else if weather.weather[0].main === "Fog"}
+                        <img src={mist} alt="mist" />
+                        {:else if weather.weather[0].main === "Sand"}
+                        <img src={mist} alt="mist" />
+                        {:else if weather.weather[0].main === "Dust"}
+                        <img src={mist} alt="mist" />
+                        {:else if weather.weather[0].main === "Ash"}
+                        <img src={mist} alt="mist" />
+                        {:else if weather.weather[0].main === "Squall"}
+                        <img src={mist} alt="mist" />
+                        {:else if weather.weather[0].main === "Tornado"}
+                        <img src={mist} alt="mist" />
                     {:else}
                         <!-- You can provide a default image or handle other cases here -->
                         <img src={nothing} alt="default" />
