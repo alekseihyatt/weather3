@@ -11,7 +11,7 @@
     let cityName = '';
 
     function getFetchUrl(cityName) {
-        return 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric' + '&appid=' + key;
+        return 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric' + '&appid=' + key;
     }
 
     async function addWeatherInfo() {
