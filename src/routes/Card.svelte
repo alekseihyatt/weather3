@@ -9,20 +9,35 @@
     import snow from '$lib/images/snow.png';
     import { key } from '../key';
     import { weatherList } from '../store.js';
+    import { fade, fly } from 'svelte/transition';
+    import { onMount } from 'svelte';
 
     let cityName = '';
+    let isWeatherBoxVisible = false;
+    let weatherBox;
+
+    onMount(() => {
+        // Set the initial state when the component is mounted
+        isWeatherBoxVisible = true;
+    });
 
     function getFetchUrl(cityName) {
         return 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric' + '&appid=' + key;
     }
 
     async function addWeatherInfo() {
+
+        isWeatherBoxVisible = false;
+
         const res = await fetch(getFetchUrl(cityName));
         if (res.status === 404) {
             alert('Invalid City Name.');
         } else {
             weatherList.add(await res.json());
         };
+
+        isWeatherBoxVisible = true;
+        
     }
 	
 </script>
@@ -33,8 +48,9 @@
             <button type="button" on:click={addWeatherInfo} class="bx bx-search"></button>
        </div>
 
-    {#each $weatherList as weather, index}   
-    <div class="weather-box">
+    {#each $weatherList as weather, index}  
+    {#if isWeatherBoxVisible} 
+    <div bind:this={weatherBox} in:fly={{ x: -100, duration: 2000 }} out:fly={{ x: 500, duration: 2000 }} class="weather-box">
         <div class="box">
             <div class="info-weather">
                 <div class="weather">
@@ -104,6 +120,7 @@
         </div>
 
     </div>
+    {/if}
     {/each}
 
 </div>
