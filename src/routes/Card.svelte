@@ -10,16 +10,33 @@
     import { key } from '../key';
     import { weatherList } from '../store.js';
     import { fade, fly } from 'svelte/transition';
-    import { onMount } from 'svelte';
 
+    //draggable
+
+    export let left = 100;
+	export let top = 100;
+	
+	let moving = false;
+	
+	function onMouseDown() {
+		moving = true;
+	}
+	
+	function onMouseMove(e) {
+		if (moving) {
+			left += e.movementX;
+			top += e.movementY;
+		}
+	}
+	
+	function onMouseUp() {
+		moving = false;
+	}
+	
+
+    //api logic
     let cityName = '';
     let isWeatherBoxVisible = false;
-    let weatherBox;
-
-    onMount(() => {
-        // Set the initial state when the component is mounted
-        isWeatherBoxVisible = true;
-    });
 
     function getFetchUrl(cityName) {
         return 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric' + '&appid=' + key;
@@ -33,7 +50,15 @@
         if (res.status === 404) {
             alert('Invalid City Name.');
         } else {
-            weatherList.add(await res.json());
+            const weatherData = await res.json();
+
+        // Extract lat and lon
+        const { coord: { lat, lon } } = weatherData;
+        console.log('Latitude:', lat);
+        console.log('Longitude:', lon);
+        
+        weatherList.setCoords(lat, lon);
+        weatherList.add(weatherData);
         };
 
         isWeatherBoxVisible = true;
@@ -41,7 +66,9 @@
     }
 	
 </script>
-<div class="container">
+
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div on:mousedown={onMouseDown} style="left: {left}px; top: {top}px;"  class="container">
        <div class="search-box">
             <i class='bx bxs-map'></i>
             <input type="text" bind:value="{cityName}" placeholder="enter your location">
@@ -50,7 +77,7 @@
 
     {#each $weatherList as weather, index}  
     {#if isWeatherBoxVisible} 
-    <div bind:this={weatherBox} in:fly={{ x: -100, duration: 2000 }} out:fly={{ x: 500, duration: 2000 }} class="weather-box">
+    <div in:fly={{ x: -100, duration: 500 }} out:fly={{ x: 100, duration: 500 }} class="weather-box">
         <div class="box">
             <div class="info-weather">
                 <div class="weather">
@@ -192,10 +219,14 @@
     .weather-box {
         text-align: center;
         margin: 40px 0;
+        user-select: none;
     }
 
     .weather-box img {
         width: 50%;
+        pointer-events: none;
+        
+        
     }
 
     .weather-box .temperature {
@@ -225,6 +256,7 @@
         width: 100%;
         padding: 0 20px;
         display: flex;
+        user-select: none;
     }
 
     .weather-details .humidity,
@@ -262,3 +294,5 @@
         margin-top: 1px;
     }
 </style>
+
+<svelte:window on:mouseup={onMouseUp} on:mousemove={onMouseMove} />
