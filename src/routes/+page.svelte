@@ -2,6 +2,17 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import Modal from '../components/Modal.svelte';
+	import Card from './Card.svelte';
+	let isModalOpen = false;
+
+	function openModal() {
+		isModalOpen = true;
+	}
+
+	function closeModal() {
+		isModalOpen = false;
+	}
 </script>
 
 <svelte:head>
@@ -9,6 +20,14 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
+
+<button on:click={openModal}>Open Modal</button>
+
+<Modal isOpen={isModalOpen}>
+	<!-- Inject the Card component into the slot and pass the closeModal function -->
+	<Card {closeModal} />
+  </Modal>
+  
 <section>
 	<h1>
 		<span class="welcome">
@@ -24,6 +43,7 @@
 	<h2>
 		try editing <strong>src/routes/+page.svelte</strong>
 	</h2>
+	
 
 	<Counter />
 </section>

@@ -11,6 +11,13 @@
     import { weatherList } from '../store.js';
     import { fade, fly } from 'svelte/transition';
 
+    export let closeModal; // Add a prop to receive the closeModal function
+
+    function handleCardButtonClick() {
+        // Call the closeModal function when the button inside the Card is clicked
+        closeModal();
+    }
+
     //draggable
 
     export let left = 100;
@@ -67,8 +74,10 @@
 	
 </script>
 
+
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:mousedown={onMouseDown} style="left: {left}px; top: {top}px;"  class="container">
+    <button on:click={handleCardButtonClick} class='bx bxs-x-circle'></button>
        <div class="search-box">
             <i class='bx bxs-map'></i>
             <input type="text" bind:value="{cityName}" placeholder="enter your location">
@@ -168,7 +177,26 @@
     padding: 20px;
     color: #fff;
     }
-        
+
+    .bxs-x-circle {
+        position: relative;
+        font-size: 30px;
+        top: -30px;
+        right: 28px;
+        cursor: pointer;
+        color: #ec6a5f;
+        width: 24px; /* Set a fixed width */
+        height: 24px; 
+        border-radius: 50%;
+        background-color: #ec6a5f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+       
+    .bxs-x-circle:hover {
+    background-color: #6a3e3b;;
+    }
 
     .search-box {
         position: relative;
@@ -176,12 +204,14 @@
         height: 55px;
         display: flex;
         align-items: center;
+        margin-top: -15px;
     }
     
     .search-box i {
         position: absolute;
         left: 10px;
         font-size: 28px;
+        margin-top: -15px;
     }
 
     .search-box input {
@@ -197,6 +227,7 @@
         font-weight: 500;
         text-transform: uppercase;
         padding: 0 48px 0 42px;
+        margin-top: -15px;
     }
     .search-box input::placeholder {
         color: #fff;
@@ -214,6 +245,7 @@
         color: #fff;
         padding: 0 40px 0 5px;
         cursor: pointer;
+        margin-top: -15px;
     }
 
     .weather-box {

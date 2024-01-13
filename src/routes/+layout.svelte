@@ -1,13 +1,13 @@
 <script>
 	import Header from './Header.svelte';
-	import Card from './Card.svelte';
+	//import Card from './Card.svelte';
 	import './styles.css';
 </script>
 
 <div class="app">
 	<Header />
 
-	<Card />
+	
 
 	<main>
 		<slot />
