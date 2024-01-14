@@ -9,7 +9,7 @@
     import snow from '$lib/images/snow.png';
     import { key } from '../key';
     import { weatherList } from '../store.js';
-    import { fade, fly } from 'svelte/transition';
+    import { fly } from 'svelte/transition';
 
     export let closeModal; // Add a prop to receive the closeModal function
 
@@ -21,7 +21,7 @@
     //draggable
 
     export let left = 210;
-	export let top = 450;
+	export let top = 400;
 	
 	let moving = false;
 	

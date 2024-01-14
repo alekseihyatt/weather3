@@ -1,14 +1,26 @@
 <script>
 	import Header from './Header.svelte';
-	//import Card from './Card.svelte';
 	import './styles.css';
+
+	import CustomCursor from '../components/CustomCursor.svelte';
+
+	let mouseX = 0;
+	let mouseY = 0;
+
+	function handleMouseMove(event) {
+   	 mouseX = event.clientX;
+   	 mouseY = event.clientY;
+  }
 </script>
 
-<div class="app">
+<div class="app" on:mousemove={handleMouseMove}>
+
+	<CustomCursor x={mouseX} y={mouseY} />
+
+
 	<Header />
 
 	
-
 	<main>
 		<slot />
 	</main>
