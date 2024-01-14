@@ -12,7 +12,7 @@
    	 mouseY = event.clientY;
   }
 </script>
-
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="app" on:mousemove={handleMouseMove}>
 
 	<CustomCursor x={mouseX} y={mouseY} />
