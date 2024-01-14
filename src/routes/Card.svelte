@@ -20,7 +20,7 @@
 
     //draggable
 
-    export let left = 250;
+    export let left = 210;
 	export let top = 450;
 	
 	let moving = false;
@@ -163,7 +163,7 @@
 <style>
     .container {
     position: fixed;
-    width: 400px;
+    width: 350px;
     height: 550px;
     top: 50%;
     left: 32%;
