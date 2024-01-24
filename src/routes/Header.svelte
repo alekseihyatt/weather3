@@ -2,6 +2,17 @@
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
+	import Modal from '../components/Modal.svelte';
+	import Card from './Card.svelte';
+	let isModalOpen = false;
+
+	function openModal() {
+		isModalOpen = true;
+	}
+
+	function closeModal() {
+		isModalOpen = false;
+	}
 	
 </script>
 
@@ -34,9 +45,13 @@
 	</nav>
 
 	<div class="corner">
-		<a href="https://github.com/sveltejs/kit">
-			<img src={github} alt="GitHub" />
-		</a>
+		<button on:click={openModal}>Open Modal</button>
+
+	<Modal isOpen={isModalOpen}>
+		<!-- Inject the Card component into the slot and pass the closeModal function -->
+		<Card {closeModal} />
+	</Modal>
+  
 	</div>
 </header>
 

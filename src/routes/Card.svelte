@@ -11,6 +11,18 @@
     import { weatherList } from '../store.js';
     import { fly } from 'svelte/transition';
 
+
+
+    let inputElement;
+
+    // Function to handle keyup event on the input element
+    function handleInputKeyup(event) {
+        // Check if the pressed key is Enter (key code 13)
+        if (event.key === 'Enter') {
+            addWeatherInfo();
+        }
+    }
+
     export let closeModal; // Add a prop to receive the closeModal function
 
     function handleCardButtonClick() {
@@ -80,7 +92,7 @@
     <button on:click={handleCardButtonClick} class='bx bxs-x-circle'></button>
        <div class="search-box">
             <i class='bx bxs-map'></i>
-            <input type="text" bind:value="{cityName}" placeholder="enter your location">
+            <input type="text" bind:value="{cityName}" placeholder="enter your location" bind:this={inputElement} on:keyup={handleInputKeyup}>
             <button type="button" on:click={addWeatherInfo} class="bx bx-search"></button>
        </div>
 
@@ -180,13 +192,13 @@
 
     .bxs-x-circle {
         position: relative;
-        font-size: 30px;
-        top: -30px;
+        font-size: 28px;
+        top: -28px;
         right: 28px;
         cursor: pointer;
         color: #ec6a5f;
-        width: 24px; /* Set a fixed width */
-        height: 24px; 
+        width: 22px; /* Set a fixed width */
+        height: 22px; 
         border-radius: 50%;
         background-color: #ec6a5f;
         display: flex;

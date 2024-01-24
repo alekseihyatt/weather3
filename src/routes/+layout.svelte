@@ -2,20 +2,11 @@
 	import Header from './Header.svelte';
 	import './styles.css';
 
-	import CustomCursor from '../components/CustomCursor.svelte';
-
-	let mouseX = 0;
-	let mouseY = 0;
-
-	function handleMouseMove(event) {
-   	 mouseX = event.clientX;
-   	 mouseY = event.clientY;
-  }
 </script>
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="app" on:mousemove={handleMouseMove}>
 
-	<CustomCursor x={mouseX} y={mouseY} />
+<div>
+
+	
 
 
 	<Header />
@@ -31,12 +22,7 @@
 </div>
 
 <style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
+	
 	main {
 		flex: 1;
 		display: flex;
