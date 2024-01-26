@@ -93,6 +93,7 @@
         requestAnimationFrame(animate);
   
         // Your animation logic goes here
+        particleSystem.rotation.y += 0.01;
   
         renderer.render(scene, camera);
       };
