@@ -4,8 +4,6 @@
     import * as THREE from "three";
     import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
     import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-    import Stats from 'three/addons/libs/stats.module.js';
-    import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
   
     onMount(() => {
       const scene = new THREE.Scene();
@@ -58,24 +56,7 @@
       }
     );
 
-          // Add the 3D particle system (replace this with your particle system code)
-          const particleGeometry = new THREE.BufferGeometry();
-          const particleMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05 });
-
-          const particleCount = 1000;
-          const particles = new Float32Array(particleCount * 3);
-
-          for (let i = 0; i < particleCount; i++) {
-            particles[i * 3] = (Math.random() - 0.5) * 10;   // X position
-            particles[i * 3 + 1] = (Math.random() - 0.5) * 10; // Y position
-            particles[i * 3 + 2] = (Math.random() - 0.5) * 10; // Z position
-          }
-
-          particleGeometry.setAttribute('position', new THREE.BufferAttribute(particles, 3));
-
-          const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-          scene.add(particleSystem);
-  
+         
         // Set a better camera position
         camera.position.set(-0.700, 1.763, -7.679);
         //camera.lookAt(-1.857, 1.307, -9.631); // Optional: Look at a specific point in the scene
@@ -92,9 +73,7 @@
       const animate = () => {
         requestAnimationFrame(animate);
   
-        // Your animation logic goes here
-        particleSystem.rotation.y += 0.01;
-  
+      
         renderer.render(scene, camera);
       };
   
