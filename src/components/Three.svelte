@@ -56,17 +56,54 @@
     }
   );
 
+
+    const initialPosition = new THREE.Vector3(14, 1, -9);
+
+    const particleGeometry = new THREE.BufferGeometry();
+    const particleMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05 });
+
+    const particleCount = 50000;
+    const particles = new Float32Array(particleCount * 3);
+    
+
+    for (let i = 0; i < particleCount; i++) {
+      particles[i * 3] = (Math.random() - 0.5) * 20;   // X position
+      particles[i * 3 + 1] = (Math.random() - 0.5) * 20; // Y position
+      particles[i * 3 + 2] = (Math.random() - 0.5) * 20; // Z position
+    }
+
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particles, 3));
+
+    const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+    particleSystem.position.copy(initialPosition);
+
+    scene.add(particleSystem);
+
      // Set a better camera position
     camera.position.set(-0.700, 1.763, -7.679);
-    camera.lookAt(0.225, 1.789, -8.004); // Optional: Look at a specific point in the scene
+    //camera.lookAt(0.225, 1.789, -8.004); // Optional: Look at a specific point in the scene
+
+
+    const onMouseMove = (event) => {
+      const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      camera.rotation.y = mouseX * Math.PI;
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
 
     const animate = () => {
       requestAnimationFrame(animate);
+
+      particleSystem.rotation.y += 0.01;
 
       renderer.render(scene, camera);
     };
 
     animate();
+
+    onDestroy(() => {
+      window.removeEventListener('mousemove', onMouseMove);
+    });
   });
 </script>
 
