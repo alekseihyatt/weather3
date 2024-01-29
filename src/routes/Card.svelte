@@ -73,10 +73,13 @@
 
         // Extract lat and lon
         const { coord: { lat, lon } } = weatherData;
+        const { weather: [{id}] } = weatherData;
         console.log('Latitude:', lat);
         console.log('Longitude:', lon);
+        console.log('Status code:', id);
         
         weatherList.setCoords(lat, lon);
+        weatherList.setId(id);
         weatherList.add(weatherData);
         };
 
