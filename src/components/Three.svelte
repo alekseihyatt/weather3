@@ -87,19 +87,19 @@
       //SNOW END
 
       //RAIN
-      const secondPosition = new THREE.Vector3(6, 1, -11);
+      const secondPosition = new THREE.Vector3(8, 1, -11);
 
       const rainGeometry = new THREE.BufferGeometry();
-      const rainMaterial = new THREE.PointsMaterial({ color: 0x3498db, size: 0.05 });
+      const rainMaterial = new THREE.PointsMaterial({ color: 0x3498db, size: 0.04 });
 
-      const raindropCount = 20000;
+      const raindropCount = 30000;
       const raindrops = new Float32Array(raindropCount * 3);
       const raindropYVelocity = -0.1; // Constant Y velocity for downward movement
 
     for (let i = 0; i < raindropCount; i++) {
       raindrops[i * 3] = (Math.random() - 0.5) * 10;   // X position
-      raindrops[i * 3 + 1] = Math.random() * 10;        // Y position
-      raindrops[i * 3 + 2] = (Math.random() - 0.5) * 10; // Z position
+      raindrops[i * 3 + 1] = Math.random() * 20;        // Y position
+      raindrops[i * 3 + 2] = (Math.random() - 0.5) * 15; // Z position
     }
 
     rainGeometry.setAttribute('position', new THREE.BufferAttribute(raindrops, 3));
