@@ -1,7 +1,8 @@
 <script>
-	import Header from './Header.svelte';
+	
 	import './styles.css';
 	import Three from '../components/Three.svelte';
+	import Card from './Card.svelte';
 
 </script>
 
@@ -10,7 +11,7 @@
 	
 
 
-	<Header />
+	<Card/>
 
 	<Three />
 

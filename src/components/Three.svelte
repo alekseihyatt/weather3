@@ -1,10 +1,21 @@
 <script>
+  
   import { onMount, onDestroy } from "svelte";
   import * as THREE from "three";
   import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
   import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
   import { weatherList } from '../store.js';
-  
+
+	let isModalOpen = false;
+
+	function openModal() {
+		isModalOpen = true;
+	}
+
+	function closeModal() {
+		isModalOpen = false;
+	}
+	
 
   onMount(() => {
     const scene = new THREE.Scene();
@@ -83,7 +94,7 @@
       const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
       particleSystem.position.copy(initialPosition);
 
-      scene.add(particleSystem);
+      //scene.add(particleSystem);
       //SNOW END
 
       //RAIN
@@ -108,7 +119,7 @@
       const rainSystem = new THREE.Points(rainGeometry, rainMaterial);
       rainSystem.position.copy(secondPosition);
 
-      scene.add(rainSystem);
+      //scene.add(rainSystem);
 
       // Set a better camera position
       camera.position.set(-0.700, 1.263, -7.679);
