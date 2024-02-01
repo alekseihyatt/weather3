@@ -1,24 +1,18 @@
 <script>
   
-  import { onMount, onDestroy } from "svelte";
+  import { onMount} from "svelte";
   import * as THREE from "three";
   import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
   import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
   import { weatherList } from '../store.js';
 
-	let isModalOpen = false;
-
-	function openModal() {
-		isModalOpen = true;
-	}
-
-	function closeModal() {
-		isModalOpen = false;
-	}
-	
+  let rainSystem;
+  let particleSystem;
+  let scene;
+  let weatherSubscription;
 
   onMount(() => {
-    const scene = new THREE.Scene();
+    scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -91,10 +85,10 @@
 
       particleGeometry.setAttribute('position', new THREE.BufferAttribute(particles, 3));
 
-      const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+      particleSystem = new THREE.Points(particleGeometry, particleMaterial);
       particleSystem.position.copy(initialPosition);
 
-      //scene.add(particleSystem);
+      scene.add(particleSystem);
       //SNOW END
 
       //RAIN
@@ -103,7 +97,7 @@
       const rainGeometry = new THREE.BufferGeometry();
       const rainMaterial = new THREE.PointsMaterial({ color: 0x3498db, size: 0.04 });
 
-      const raindropCount = 30000;
+      const raindropCount = 20000;
       const raindrops = new Float32Array(raindropCount * 3);
       const raindropYVelocity = -0.1; // Constant Y velocity for downward movement
 
@@ -116,10 +110,10 @@
     rainGeometry.setAttribute('position', new THREE.BufferAttribute(raindrops, 3));
 
 
-      const rainSystem = new THREE.Points(rainGeometry, rainMaterial);
+      rainSystem = new THREE.Points(rainGeometry, rainMaterial);
       rainSystem.position.copy(secondPosition);
 
-      //scene.add(rainSystem);
+      scene.add(rainSystem);
 
       // Set a better camera position
       camera.position.set(-0.700, 1.263, -7.679);
@@ -148,6 +142,7 @@
       }
 
 
+
       rainGeometry.attributes.position.needsUpdate = true;
 
 
@@ -158,10 +153,40 @@
 
     animate();
 
-    //onDestroy(() => {
-    //  window.removeEventListener('mousemove', onMouseMove);
-    //});
+
+    weatherSubscription = weatherList.subscribeWeather((weather) => {
+      if (weather.id === 500 || weather.id === 501 || weather.id === 502
+       || weather.id === 503 || weather.id === 504 || weather.id === 511
+       || weather.id === 520 || weather.id === 521 || weather.id === 522
+       || weather.id === 502 || weather.id === 502 || weather.id === 502
+       || weather.id === 531 || weather.id === 300 || weather.id === 301
+       || weather.id === 302 || weather.id === 310 || weather.id === 311
+       || weather.id === 312 || weather.id === 313 || weather.id === 314
+       || weather.id === 321) {
+        // Add rainSystem to the scene when weather ID is 500, 501, or 502
+        scene.add(rainSystem);
+      } else {
+        // Remove rainSystem from the scene for other weather IDs
+        scene.remove(rainSystem);
+      }
+    });
+
+    weatherSubscription = weatherList.subscribeWeather((weather) => {
+      if (weather.id === 600 || weather.id === 601 || weather.id === 602
+       || weather.id === 611 || weather.id === 612 || weather.id === 613
+       || weather.id === 615 || weather.id === 616 || weather.id === 620
+       || weather.id === 621 || weather.id === 622) {
+        // Add rainSystem to the scene when weather ID is 500, 501, or 502
+        scene.add(particleSystem);
+      } else {
+        // Remove rainSystem from the scene for other weather IDs
+        scene.remove(particleSystem);
+      }
+    });
+    
+    
   });
+
 </script>
 
 <div id="three-container"></div>
