@@ -39,7 +39,7 @@
     loader.setDRACOLoader(dracoLoader);
 
     loader.load(
-      '/src/lib/Atelier.glb',
+      '/models/Atelier.glb',
       (gltf) => {
         // Once the model is loaded, add it to the scene
         scene.add(gltf.scene);
@@ -51,7 +51,7 @@
     );
 
     loader.load(
-    '/src/lib/KS_Sky.glb',
+    '/models/KS_Sky.glb',
     (gltf) => {
       // Once the second model is loaded, add it to the scene
       scene.add(gltf.scene);
