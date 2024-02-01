@@ -25,8 +25,8 @@
 
     //draggable
 
-    export let left = 310;
-	export let top = 400;
+    export let left = 385;
+	export let top = 425;
 	
 	let moving = false;
 	
